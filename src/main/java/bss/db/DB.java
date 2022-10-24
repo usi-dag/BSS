@@ -31,6 +31,7 @@ public final class DB {
 
     public static DB create() {
         try {
+            Class.forName("org.sqlite.JDBC");
             if(INSTANCE == null) {
                 Connection con = connection();
                 return new DB(
@@ -44,7 +45,7 @@ public final class DB {
 					bss.db.supplier.create(con));
             }
             return INSTANCE;
-        } catch(SQLException e) {
+        } catch(SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
